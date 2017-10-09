@@ -11,5 +11,11 @@ var stringifyJSON = function(obj) {
   if (typeof obj === 'number' || obj === null || typeof obj === 'boolean') {
     return obj + '';
   }
-  
+  if (Array.isArray(obj)) {
+    return '[' + obj.map(function(element) {
+      return stringifyJSON(element);
+    }).join(',') + ']';
+  }
 };
+
+console.log(stringifyJSON([8]));
