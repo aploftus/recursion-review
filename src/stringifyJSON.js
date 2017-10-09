@@ -17,9 +17,15 @@ var stringifyJSON = function(obj) {
     }).join(',') + ']';
   }
   if (typeof obj === 'object') {
-    return '{' + _.map(obj, function(prop, key) {
-      return stringifyJSON(key) + ':' + stringifyJSON(prop);
-    }).join(',') + '}';
+    var results = [];
+    for (key in obj) {
+      if (obj[key] === undefined || typeof obj[key] === 'function') {
+        continue;
+      } else {
+        results.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+      }
+    }
+    return '{' + results.join(',') + '}';
   }
 };
 
